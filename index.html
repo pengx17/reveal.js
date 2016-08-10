@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>xp slides example</title>
+  <title>Alauda Hackday</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -38,49 +38,87 @@
     <div class="slides">
       <section data-markdown>
         <script type="text/template">
-          # A sample slideshow
+          # Rubick UI Refactoring
         </script>
-      </section>
-
-      <section>
-        <h1>
-          HAHAHA
-        </h1>
-        <h2>
-          BOOM
-        </h2>
       </section>
 
       <section data-markdown>
         <script type="text/template">
-          ## Page title
-          A paragraph with some text and a [link](http://hakim.se).
-          ```javascript
-          Reveal.initialize({
-              ...,
+          ## Current Issues
+          - Lots of hard-coded configurations
+          - Bad practice of using the Angular framework
+          - Lack of state-of-art frontend programming paradigm
+        </script>
+      </section>
 
-              // Exposes the reveal.js API through window.postMessage
-              postMessage: true,
+      <section data-markdown>
+        <script type="text/template">
+          ## Refactoring Principles
+          - Convention over configuration
+          - Seperation of concerns (using components)
+          - Frontend/backend decoupling
+          - Using more advanced techniques for post-processing
+          - ES2015, Webpack
+          - Even more
+        </script>
+      </section>
 
-              // Dispatches all reveal.js events to the parent window through postMessage
-              postMessageEvents: false
-          });
+      <section data-markdown>
+        <script type="text/template">
+          ### Modularity: Folders-by-Feature Structure
+          - code can be easily located by feature
+          - good namings helps post-processing
+
+          ```
+          app/
+              app.module.js
+              app.config.js
+              components/
+                  calendar.directive.js
+                  calendar.directive.html
+                  user-profile.directive.js
+                  user-profile.directive.html
+              layout/
+                  shell.html
+                  shell.controller.js
+                  topnav.html
+                  topnav.controller.js
+              people/
+                  attendees.html
+                  attendees.controller.js
+                  people.routes.js
+                  speakers.html
+                  speakers.controller.js
+                  speaker-detail.html
+                  speaker-detail.controller.js
+              services/
+                  data.service.js
+                  localstorage.service.js
+                  logger.service.js
+                  spinner.service.js
+              sessions/
+                  sessions.html
+                  sessions.controller.js
+                  sessions.routes.js
+                  session-detail.html
+                  session-detail.controller.js
+
           ```
         </script>
       </section>
 
       <section data-markdown>
         <script type="text/template">
-          ## Page title
-          ---
-          1. hahaah
-          2. hahah2
-            1. asdasd
-            1. asdasd
-            1. asdasd
-              1. **asdasd**
+          ## Post processing
+          - Replace `Grunt` with `Gulp`
+          - We can do more magic stuff with Gulp than Grunt
+          - Auto generate configurations
+            - Developers can focus on development, not on the configures
+          - Transpile ES6 with Babel
+            - Embrase the future Javascript syntax!
         </script>
       </section>
+
     </div>
 
   </div>
