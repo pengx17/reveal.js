@@ -89,41 +89,25 @@
 
             <section data-markdown>
                 <script type="text/template">
-                    ## Design Decisions
-                    ### Server side
+                    ## Old Fasion Design Decisions
+                    ### Server
                     - Database (message storage)
                       - CRUD operations
                       - Schema design
-                    - Broadcast messages to clients in realtime
-                        - Websocket server
-                        - Notifies clients when DB changes
+                    - REST API Service 
 
-                    ### Client side
+                    ### Client
                     - MV* frameworks
+                      - Aggresively fetches data via polling / long connection
                       - Render UI with the latest data model
-                      - Data model is updated via data change event
+
+                    ### Tons of issues to resolve
                 </script>
             </section>
 
             <section data-markdown>
                 <script type="text/template">
-                    ## In another perspective ...
-                    ### A **Data-Driven** Application
-                </script>
-            </section>
-            
-            <section data-markdown>
-                <script type="text/template">
-                    ## **Sharing States** is the key
-                    ### State management and propagation
-                    - Server manages a global state and broadcast them to the clients
-                    - Client renders the view based on the current server side state
-                </script>
-            </section>
-
-            <section data-markdown>
-                <script type="text/template">
-                    ## Reactive Programming
+                    ### Redesign with *Reactive Programming*
                     - "In computing, reactive programming is a programming paradigm oriented around data flows and the propagation of change."
                         - https://en.wikipedia.org/wiki/Reactive_programming
                     - Play Framework, Akka
@@ -135,10 +119,39 @@
 
             <section data-markdown>
                 <script type="text/template">
-                    ### Thinking the state/data/model as a 
-                    ### **Shared Memory**
+                    ## 用简单汉语来讲
+                    > 基于**变化传递**思想的编程范式。
+
+                    A Reactive System is built with multiple streams of events
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    #### From another perspective ...
+                    ### Chatroom is just 
+                    ## A **Data-Driven** Application
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ## **Sharing States** is the key
+                    ### State management and propagation
+                    - Server manages a global state and broadcast them to the clients
+                    
+                    ### As a result
                     - All clients see the same data
                     - Whenever client/server updates the data, the changes automatically propagate to all connected subjects
+                    - Client renders the view based on the current server side state
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    #### If State can be Shared in *Realtime* 
+                    ### ReThinking the state/data/model as a 
+                    ### **Shared Memory**
                 </script>
             </section>
 
