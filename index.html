@@ -2,131 +2,250 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Alauda Hackday</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Reactive App with Firebase</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-  <link rel="stylesheet" href="css/reveal.css">
-  <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
 
-  <!-- Code syntax highlighting -->
-  <link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-  <!-- Custom styles -->
-  <style>
-    section {
-      text-align: left !important;
-    }
-    em {
-      text-decoration: underline;
-    }
-    strong {
-      color: #FF2C2D;
-    }
-  </style>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCreR9sDWYuKtVmbCbTAOKxVhpFabiKeFw",
+        authDomain: "reactive-ui.firebaseapp.com",
+        databaseURL: "https://reactive-ui.firebaseio.com",
+        storageBucket: "reactive-ui.appspot.com",
+    };
+    firebase.initializeApp(config);
+    </script>
+
+    <!-- Custom styles -->
+    <style>
+        section {
+            text-align: left !important;
+        }
+        
+        em {
+            /*text-decoration: underline;*/
+        }
+        
+        strong {
+            color: #FF2C2D;
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="reveal">
+    <div class="reveal">
 
-    <!-- Any section element inside of this container is displayed as a slide -->
-    <div class="slides">
-      <section data-markdown>
-        <script type="text/template">
-          # Rubick UI Refactoring
-        </script>
-      </section>
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section data-markdown>
+                <script type="text/template">
+                    # Building Reactive Applications
+                    ## with **Firebase**
+                </script>
+            </section>
 
-      <section data-markdown>
-        <script type="text/template">
-          ## Current Issues
-          - Lots of hard-coded configurations
-          - Bad practice of using the Angular framework
-          - Lack of state-of-art frontend programming paradigm
-        </script>
-      </section>
+            <section data-markdown>
+                <script type="text/template">
+                    ## Case Study
+                    ### Design a browser based chatroom app
+                </script>
+            </section>
 
-      <section data-markdown>
-        <script type="text/template">
-          ## Refactoring Principles
-          - Convention over configuration
-          - Seperation of concerns (using components)
-          - Frontend/backend decoupling
-          - Using more advanced techniques for post-processing
-          - ES2015, Webpack
-          - Even more
-        </script>
-      </section>
+            <section data-markdown>
+                <script type="text/template">
+                    ## A typical *Server/Client* problem
+                    #### Browser (Client)
+                     - join a room
+                     - see historical messages
+                     - send and recieve new messages
 
-      <section data-markdown>
-        <script type="text/template">
-          ### Modularity: Folders-by-Feature Structure
-          - code can be easily located by feature
-          - good namings helps post-processing
+                    #### 
 
-          ```
-          app/
-              app.module.js
-              app.config.js
-              components/
-                  calendar.directive.js
-                  calendar.directive.html
-                  user-profile.directive.js
-                  user-profile.directive.html
-              layout/
-                  shell.html
-                  shell.controller.js
-                  topnav.html
-                  topnav.controller.js
-              people/
-                  attendees.html
-                  attendees.controller.js
-                  people.routes.js
-                  speakers.html
-                  speakers.controller.js
-                  speaker-detail.html
-                  speaker-detail.controller.js
-              services/
-                  data.service.js
-                  localstorage.service.js
-                  logger.service.js
-                  spinner.service.js
-              sessions/
-                  sessions.html
-                  sessions.controller.js
-                  sessions.routes.js
-                  session-detail.html
-                  session-detail.controller.js
+                    #### Server
+                    - can handle user states
+                    - send historical messages
+                    - broadcasst messages to all chatroom members
+                </script>
+            </section>
 
-          ```
-        </script>
-      </section>
+            <section data-markdown>
+                <script type="text/template">
+                    ## Design Decisions
+                    ### Server side
+                    - Database (messages)
+                      - CRUD operations
+                      - Schema design
+                    - User authorization and authentication
+                    - Broadcast messages to clients in realtime
+                        - Websocket server
+                        - Notifies clients when DB changes
+                </script>
+            </section>
 
-      <section data-markdown>
-        <script type="text/template">
-          ## Post processing
-          - Replace `Grunt` with `Gulp`
-          - We can do more magic stuff with Gulp than Grunt
-          - Auto generate configurations
-            - Developers can focus on development, not on the configures
-          - Transpile ES6 with Babel
-            - Embrase the future Javascript syntax!
-        </script>
-      </section>
+            <section data-markdown>
+                <script type="text/template">
+                    ## Design Decisions
+                    ### A *Reactive* Client
+                    - Update the data model by events/notifications
+                    - Reflect changes (state) to the View
+                      - MV* frameworks
+                      - Angular, Vue, React
+                </script>
+            </section>
+            
+            <section data-markdown>
+                <script type="text/template">
+                    ## **State** is the key
+                    ### State management and propagation
+                    - Server manages a global state and broadcast them to the clients
+                    - Client renders the view based on the current server side state
+                </script>
+            </section>
 
+            <section data-markdown>
+                <script type="text/template">
+                    ## Reactive Programming
+                    - "In computing, reactive programming is a programming paradigm oriented around data flows and the propagation of change."
+                        - https://en.wikipedia.org/wiki/Reactive_programming
+                    - Play Framework, Akka
+                    - [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+                    - Observable
+                      - Angular 2's http module
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ### A Need for Realtime Websocket Based Database
+                    Instead of polling result by the client side,
+                    the client can get notified via push notifications when DB has changes 
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ## One More Step Forward
+                    ### State management and propagation
+                    - Server manages a global state and broadcast them to the clients
+                    - Client renders the view based on the current server side state
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ## Just like two-way data-binding between server and client
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ### Solutions in the Market
+                    - PaaS
+                      - [Firebase](https://firebase.google.com/) By Google
+                      - [野狗](https://www.wilddog.com/) A Chinese startup
+                      - [PubNub](https://www.pubnub.com/) and [Pusher](https://pusher.com/)
+                    - Open Source (DIY)
+                      - ethinkdb.com
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ### ReThinking the state/data/model as a 
+                    ### **Shared Memory**
+                    - All clients see the same data
+                    - Whenever client/server updates the data, the changes automatically propagate to all connected subjects
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ## Demo
+                    ```js
+                    var config = {
+                      apiKey: "AIzaSyCreR9sDWYuKtVmbCbTAOKxVhpFabiKeFw",
+                      authDomain: "reactive-ui.firebaseapp.com",
+                      databaseURL: "https://reactive-ui.firebaseio.com",
+                      storageBucket: "reactive-ui.appspot.com",
+                    };
+                    // Connect to DB
+                    var db = firebase.initializeApp(config).database();
+                    // Write values
+                    db.ref('foo').set({
+                      key: '123'
+                    });
+                    // Listen to DB changes
+                    db.ref('bar').on('value', (bar) => { 
+                      console.log(`New bar value: ${JSON.stringify(bar.val())}`);
+                    });
+                    ```
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ## Demo
+                    - Pure Data Driven Chatroom
+                    - Firebase
+                    - [Polymer](https://www.polymer-project.org/1.0/)
+                    - https://github.com/pengx17/nc_polymer
+                    ```html
+                    <firebase-collection 
+                        location="xp-chat.firebaseio.com/channels" 
+                        data="{{channels}}" 
+                        id="channelCollection">
+                    </firebase-collection>
+                    ```
+                </script>
+            </section>
+
+            <section style='width: 100%; height: 100%;'>
+                <iframe style='width: 100%; height: 100%' src="https://xp-chat.firebaseapp.com/" frameborder="0"></iframe>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ## What's more about Firebase
+                    - Static Web Hosting
+                    - Data Analytics
+                    - User Authentication
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ## Ideas
+                    - Building quick prototypes
+                    - Online Games
+                    - Realtime Notification / Alarms
+
+                    ## For advanced usages
+                    - Deploy a custom DB with https://rethinkdb.com
+                </script>
+            </section>
+
+            <section data-markdown>
+                <script type="text/template">
+                    ### Thanks
+                </script>
+            </section>
     </div>
 
-  </div>
-
-  <script src="lib/js/head.min.js"></script>
-  <script src="js/reveal.js"></script>
-  <script src="js/index.js"></script>
-
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script src="js/index.js"></script>
 </body>
-
 </html>
